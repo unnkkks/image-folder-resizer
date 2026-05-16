@@ -1,0 +1,150 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "image-folder-resizer"
+version = "0.1.0"
+description = "Batch resize images in a folder with aspect-ratio strategies."
+readme = "README.md"
+license = "MIT"
+authors = [{ name = "Ksenia Martynycheva" }]
+requires-python = ">=3.11"
+keywords = ["images", "resize", "pillow", "cli"]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "License :: OSI Approved :: MIT License",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+  "click>=8.1.8",
+  "Pillow>=11.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/unnkkks/image-folder-resizer"
+Issues = "https://github.com/unnkkks/image-folder-resizer/issues"
+
+[project.scripts]
+resizer = "resizer.cli:main"
+
+[dependency-groups]
+dev = [
+  "build>=1.2.2",
+  "matplotlib>=3.10.0",
+  "mypy>=1.18.2",
+  "poethepoet>=0.37.0",
+  "pyinstaller>=6.16.0",
+  "ruff>=0.14.0",
+  "twine>=6.2.0",
+  { include-group = "docs" },
+  { include-group = "tests" },
+]
+docs = [
+  "furo>=2025.9.25",
+  "myst-parser>=4.0.1",
+  "sphinx>=8.2.0",
+  "sphinx-autoapi>=3.6.0",
+  "sphinx-click>=6.0.0",
+]
+tests = [
+  "coverage[toml]>=7.8.0",
+  "pytest>=8.4.0",
+  "pytest-cov>=6.2.0",
+  "pytest-mock>=3.14.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/resizer"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+src = ["src", "tests"]
+exclude = ["docs/_build"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.ruff.lint]
+select = [
+  "A",
+  "ARG",
+  "B",
+  "C4",
+  "D",
+  "E",
+  "EM",
+  "F",
+  "FBT",
+  "I",
+  "N",
+  "PERF",
+  "PIE",
+  "PL",
+  "PTH",
+  "RET",
+  "RUF",
+  "S",
+  "SIM",
+  "TRY",
+  "UP",
+  "W",
+]
+ignore = [
+  "D203",
+  "D213",
+  "PLR2004",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**/*.py" = ["S101", "D100", "D103", "ARG001"]
+"scripts/**/*.py" = ["T201"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+packages = ["resizer"]
+warn_unreachable = true
+warn_unused_configs = true
+[[tool.mypy.overrides]]
+module = ["PIL.*"]
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+addopts = "--cov=resizer --cov-report=term-missing --cov-report=xml --cov-fail-under=90"
+testpaths = ["tests"]
+markers = [
+  "slow: tests that are intentionally skipped in fast CI",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["resizer"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+fail_under = 90
+exclude_also = [
+  "if __name__ == .__main__.",
+]
+
+[tool.poe.tasks]
+format = "ruff format src tests scripts"
+lint = "ruff check src tests scripts"
+lint-fix = "ruff check --fix src tests scripts"
+typecheck = "mypy"
+test = "pytest -m 'not slow'"
+test-all = "pytest"
+docs = { cmd = "sphinx-build -b html docs docs/_build/html", help = "Build Sphinx HTML documentation" }
+build = "python -m build"
+resizer = "resizer"
+profile = "python scripts/profile_resize.py"
+standalone = "pyinstaller --onefile --name resizer src/resizer/cli.py"
+ci = { sequence = ["format", "lint", "typecheck", "test", "docs", "build"], help = "Run the same fast checks as CI" }

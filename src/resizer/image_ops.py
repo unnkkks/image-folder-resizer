@@ -1,6 +1,7 @@
 """Image resizing operations."""
 
 from pathlib import Path
+from typing import assert_never
 
 from PIL import Image, UnidentifiedImageError
 
@@ -52,5 +53,4 @@ def resize_image(
                 canvas.paste(resized, paste_at)
             return canvas
 
-    msg = f"unsupported aspect mode: {mode}"
-    raise ValueError(msg)
+    assert_never(mode)

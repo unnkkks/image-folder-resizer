@@ -68,7 +68,10 @@ def test_resize_one_uses_mocked_io(image_file: Path, tmp_path: Path) -> None:
     image = Image.new("RGB", (10, 10))
     output = tmp_path / "out.jpg"
     config = ResizeConfig(image_file.parent, tmp_path, 5, 5, overwrite=True)
-    with patch("resizer.io.open_image", return_value=image) as mocked_open, patch("resizer.io.save_image") as mocked_save:
+    with (
+        patch("resizer.io.open_image", return_value=image) as mocked_open,
+        patch("resizer.io.save_image") as mocked_save,
+    ):
         assert resize_one(image_file, output, config) == output
     mocked_open.assert_called_once_with(image_file)
     mocked_save.assert_called_once()

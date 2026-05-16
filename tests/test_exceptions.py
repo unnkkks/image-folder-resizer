@@ -6,7 +6,7 @@ from resizer.exceptions import (
 
 
 def test_resizer_error() -> None:
-    """Test base exception"""
+    """Test base exception."""
     assert issubclass(
         ResizerError,
         Exception,
@@ -14,7 +14,7 @@ def test_resizer_error() -> None:
 
 
 def test_invalid_image_error() -> None:
-    """Test invalid image error"""
+    """Test invalid image error."""
     assert issubclass(
         InvalidImageError,
         ResizerError,
@@ -22,7 +22,7 @@ def test_invalid_image_error() -> None:
 
 
 def test_unsupported_format_error() -> None:
-    """Test unsupported format error"""
+    """Test unsupported format error."""
     assert issubclass(
         UnsupportedFormatError,
         ResizerError,

@@ -1,10 +1,10 @@
-"""Custom type definitions"""
+"""Custom type definitions."""
 
 from enum import StrEnum
 
 
 class ResizeMode(StrEnum):
-    """Supported resize modes"""
+    """Supported resize modes."""
 
     STRETCH = "stretch"
     KEEP = "keep"

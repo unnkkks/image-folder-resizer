@@ -50,7 +50,7 @@ def parse_rgb(value: str) -> tuple[int, int, int]:
 @click.option("--quality", default=90, show_default=True, type=click.IntRange(1, 100), help="Output quality.")
 @click.option("--format", "image_format", type=click.Choice(["jpeg", "png", "webp"]), help="Force output format.")
 @click.option("--background", default="255,255,255", show_default=True, help="RGB color for pad mode.")
-def main(
+def main(  # noqa: PLR0913
     input_dir: Path,
     output_dir: Path,
     width: int,

@@ -25,7 +25,7 @@ def open_image(path: Path) -> Image.Image:
 def resize_image(
     image: Image.Image,
     target_size: tuple[int, int],
-    mode: AspectMode = AspectMode.STRETCH,
+    mode: AspectMode | object = AspectMode.STRETCH,
     *,
     background: tuple[int, int, int] = (255, 255, 255),
     resample: int = Image.Resampling.LANCZOS,
@@ -34,6 +34,10 @@ def resize_image(
     if target_size[0] <= 0 or target_size[1] <= 0:
         msg = "target size values must be positive"
         raise ValueError(msg)
+
+    if not isinstance(mode, AspectMode):
+        msg = f"unsupported aspect mode: {mode}"
+        raise TypeError(msg)
 
     match mode:
         case AspectMode.STRETCH:

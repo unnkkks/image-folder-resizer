@@ -60,5 +60,5 @@ def test_open_image_converts_rgba(tmp_path: Path) -> None:
 
 def test_resize_rejects_unknown_mode() -> None:
     image = Image.new("RGB", (10, 10))
-    with pytest.raises(ValueError, match="unsupported"):
+    with pytest.raises(TypeError, match="unsupported"):
         resize_image(image, (5, 5), "unknown")  # type: ignore[arg-type]

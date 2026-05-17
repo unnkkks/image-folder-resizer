@@ -11,3 +11,7 @@ class UnsupportedImageError(ResizerError):
 
 class OutputExistsError(ResizerError):
     """Raised when output exists and overwriting is disabled."""
+
+
+class UnsupportedFormatError(ResizerError):
+    """Raised when an output image format is not supported."""

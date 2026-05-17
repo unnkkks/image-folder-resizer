@@ -3,9 +3,9 @@
 [![Tests](https://github.com/unnkkks/image-folder-resizer/actions/workflows/ci.yml/badge.svg)](https://github.com/unnkkks/image-folder-resizer/actions/workflows/ci.yml)
 [![Coverage](https://img.shields.io/badge/coverage-90%25%2B-brightgreen)](./coverage.xml)
 
-`image-folder-resizer` — это консольное приложение на Python для пакетного изменения размеров изображений в папке. Программа обрабатывает все поддерживаемые изображения из входной директории и сохраняет результат в выходную директорию.
+`image-folder-resizer` — это приложение на Python для пакетного изменения размеров изображений в папке. Программа обрабатывает все поддерживаемые изображения из входной директории и сохраняет результат в выходную директорию.
 
-Проект оформлен как полноценный Python-пакет: используется структура `src/`, тесты `pytest`, проверка типов `mypy`, форматирование и линтинг `ruff`, CLI на `click`, документация `Sphinx`, задачи запуска через `Poe the Poet`, управление зависимостями через `uv`, а также CI/CD через GitHub Actions.
+В проекте используется структура `src/`, тесты `pytest`, проверка типов `mypy`, форматирование и линтинг `ruff`, CLI на `click`, документация `Sphinx`, задачи запуска через `Poe the Poet`, управление зависимостями через `uv`, а также CI/CD через GitHub Actions.
 
 ## Возможности
 

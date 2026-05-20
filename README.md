@@ -1,5 +1,9 @@
 # image-folder-resizer
 
+[![CI](https://github.com/unnkkks/image-folder-resizer/actions/workflows/ci.yml/badge.svg)](https://github.com/unnkkks/image-folder-resizer/actions/workflows/ci.yml)
+![tests](badges/tests.svg)
+![coverage](badges/coverage.svg)
+
 Здесь находится приложение для изменения размеров изображений в папке.  
 Основная идея проекта — взять все изображения из входной директории, изменить их размер по выбранному режиму работы с пропорциями и сохранить результат в отдельную папку.
 
@@ -311,12 +315,13 @@ image-folder-resizer/
 │   ├── test_config.py
 │   ├── test_exceptions.py
 │   ├── test_image_ops.py
-│   └── test_io.py
+│   ├── test_io.py
+│   └── test_types.py
 ├── docs/
 ├── scripts/
 │   └── profile_resize.py
 ├── reports/
-│   └── performance_report.tex
+│   └── performance.png
 ├── .github/
 │   └── workflows/
 │       └── ci.yml

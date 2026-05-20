@@ -53,6 +53,7 @@ docs = [
 ]
 tests = [
   "coverage[toml]>=7.8.0",
+  "genbadge[coverage,tests]>=1.1.2",
   "pytest>=8.4.0",
   "pytest-cov>=6.2.0",
   "pytest-mock>=3.14.0",
@@ -117,7 +118,7 @@ module = ["PIL.*"]
 ignore_missing_imports = true
 
 [tool.pytest.ini_options]
-addopts = "--cov=resizer --cov-report=term-missing --cov-report=xml --cov-fail-under=90"
+addopts = "--cov=resizer --cov-report=term-missing --cov-report=xml --cov-fail-under=100"
 testpaths = ["tests"]
 markers = [
   "slow: tests that are intentionally skipped in fast CI",
@@ -130,9 +131,10 @@ source = ["resizer"]
 [tool.coverage.report]
 show_missing = true
 skip_covered = false
-fail_under = 90
+fail_under = 100
 exclude_also = [
   "if __name__ == .__main__.",
+  "assert_never\\(",
 ]
 
 [tool.poe.tasks]

@@ -1,4 +1,6 @@
+from importlib.metadata import PackageNotFoundError
 from pathlib import Path
+from unittest.mock import patch
 
 from click.testing import CliRunner
 from PIL import Image
@@ -41,4 +43,5 @@ def test_cli_reports_bad_background(input_dir: Path, tmp_path: Path) -> None:
 
 
 def test_package_version_fallback() -> None:
-    assert isinstance(package_version(), str)
+    with patch("resizer.cli.version", side_effect=PackageNotFoundError):
+        assert package_version() == "0.0.0"

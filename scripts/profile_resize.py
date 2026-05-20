@@ -8,9 +8,8 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from PIL import Image
-from resizer.core import resize_directory
 
-from resizer.types import AspectMode
+from resizer import AspectMode, ResizeConfig, resize_folder
 
 ROOT = Path(__file__).resolve().parents[1]
 BENCH = ROOT / ".bench"
@@ -42,7 +41,8 @@ def measure(count: int, mode: AspectMode) -> float:
     create_dataset(input_dir, count)
 
     start = time.perf_counter()
-    resize_directory(input_dir, output_dir, width=512, height=512, mode=mode)
+    config = ResizeConfig(input_dir, output_dir, width=512, height=512, mode=mode, overwrite=True)
+    resize_folder(config)
     return time.perf_counter() - start
 
 

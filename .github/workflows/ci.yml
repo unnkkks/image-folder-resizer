@@ -11,14 +11,25 @@ jobs:
       - uses: actions/checkout@v4
       - uses: astral-sh/setup-uv@v5
       - run: uv sync --all-groups
-      - run: uv run ruff format --check src tests scripts
-      - run: uv run ruff check src tests scripts
-      - run: uv run mypy
-      - run: uv run pytest -m "not slow" --cov=resizer --cov-report=xml --cov-report=term-missing
-      - run: uv run sphinx-build -b html docs docs/_build/html
-      - run: uv run python -m build
-      - name: Upload coverage badge data
+      - name: Check formatting
+        run: uv run ruff format --check src tests scripts
+      - name: Lint
+        run: uv run ruff check src tests scripts
+      - name: Type check
+        run: uv run mypy
+      - name: Test
+        run: uv run pytest -m "not slow" --junitxml=junit.xml
+      - name: Generate badges
+        run: uv run python scripts/generate_badges.py
+      - name: Build docs
+        run: uv run sphinx-build -b html docs docs/_build/html
+      - name: Build package
+        run: uv run python -m build
+      - name: Upload badge data
         uses: actions/upload-artifact@v4
         with:
-          name: coverage-xml
-          path: coverage.xml
+          name: ci-badges-and-reports
+          path: |
+            badges/
+            coverage.xml
+            junit.xml

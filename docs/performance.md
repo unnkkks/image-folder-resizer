@@ -8,7 +8,7 @@ Run:
 uv run poe profile
 ```
 
-The generated LaTeX report is stored in `reports/performance_report.tex`.
+The generated chart is stored in `reports/performance.png`.
 
 ## Possible optimization
 
